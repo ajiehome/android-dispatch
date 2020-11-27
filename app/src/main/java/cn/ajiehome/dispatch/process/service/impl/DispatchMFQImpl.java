@@ -13,6 +13,11 @@ public class DispatchMFQImpl implements Dispatch {
     private Long fragmentTime = 5L;
     private Long runTime = 0L;
 
+    public DispatchMFQImpl(Long fragmentTime) {
+        this.fragmentTime = fragmentTime;
+    }
+    public DispatchMFQImpl() {
+    }
 
     @Override
     public Long transfer() {
@@ -43,26 +48,34 @@ public class DispatchMFQImpl implements Dispatch {
 
     @Override
     public void blockProcess() {
-
+        QueueUtils.blockProcess();
     }
 
     @Override
     public void runProcess(Integer index) {
-
+        QueueUtils.runProcess(index);
     }
 
     @Override
     public void HangProcess(Integer position, Integer index) {
-
+        QueueUtils.hangProcess(position,index);
     }
 
     @Override
     public void wakeProcess(Integer index) {
-
+        QueueUtils.wakeProcess(index);
     }
 
     @Override
     public void activationProcess(Integer index) {
+        QueueUtils.activationProcess(index);
+    }
 
+    public Long getFragmentTime() {
+        return fragmentTime;
+    }
+
+    public void setFragmentTime(Long fragmentTime) {
+        this.fragmentTime = fragmentTime;
     }
 }
