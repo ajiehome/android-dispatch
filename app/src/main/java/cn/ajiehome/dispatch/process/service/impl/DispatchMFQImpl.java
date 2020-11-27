@@ -5,28 +5,20 @@ import cn.ajiehome.dispatch.process.entity.PCB;
 import cn.ajiehome.dispatch.process.service.Dispatch;
 import cn.ajiehome.dispatch.utils.QueueUtils;
 
-import java.util.IllegalFormatCodePointException;
-
 /**
  * @author Jie
  */
-public class DispatchRRImpl implements Dispatch {
-    private static final String TAG = "DispatchRRImpl";
-
+public class DispatchMFQImpl implements Dispatch {
+    private static final String TAG = "DispatchMFQImpl";
     private Long fragmentTime = 5L;
     private Long runTime = 0L;
 
-    public DispatchRRImpl(Long fragmentTime) {
-        this.fragmentTime = fragmentTime;
-    }
-    public DispatchRRImpl() {
-    }
 
     @Override
     public Long transfer() {
         QueueUtils.allocationMemory(QueueUtils.distributionIndex);
+        QueueUtils.sortMFQProcess();
 
-        //无运行队列，分配一个
         if (QueueUtils.runQueue.size()==0){
             if (!QueueUtils.runProcess(0)){
                 return ++QueueUtils.systemRunTimeAll;
@@ -42,7 +34,7 @@ public class DispatchRRImpl implements Dispatch {
             runTime=0L;
         }
         //重新排队
-        if (runTime>=fragmentTime){
+        if (runTime>=fragmentTime*pcb.getProcessLevel()){
             QueueUtils.requeueMFQProcess();
             runTime=0L;
         }
@@ -51,34 +43,26 @@ public class DispatchRRImpl implements Dispatch {
 
     @Override
     public void blockProcess() {
-        QueueUtils.blockProcess();
+
     }
 
     @Override
     public void runProcess(Integer index) {
-        QueueUtils.runProcess(index);
+
     }
 
     @Override
     public void HangProcess(Integer position, Integer index) {
-        QueueUtils.hangProcess(position,index);
+
     }
 
     @Override
     public void wakeProcess(Integer index) {
-        QueueUtils.wakeProcess(index);
+
     }
 
     @Override
     public void activationProcess(Integer index) {
-        QueueUtils.activationProcess(index);
-    }
 
-    public Long getFragmentTime() {
-        return fragmentTime;
-    }
-
-    public void setFragmentTime(Long fragmentTime) {
-        this.fragmentTime = fragmentTime;
     }
 }

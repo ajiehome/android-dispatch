@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import cn.ajiehome.dispatch.process.service.Dispatch;
 import cn.ajiehome.dispatch.process.service.impl.DispatchFCFSImpl;
+import cn.ajiehome.dispatch.process.service.impl.DispatchMFQImpl;
 import cn.ajiehome.dispatch.process.service.impl.DispatchPriorityImpl;
 import cn.ajiehome.dispatch.process.service.impl.DispatchRRImpl;
 import cn.ajiehome.dispatch.utils.QueueUtils;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         timer = new Timer();
 
         QueueUtils.initProcess(5);
-        Dispatch dispatch = new DispatchPriorityImpl();
+        Dispatch dispatch = new DispatchMFQImpl();
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

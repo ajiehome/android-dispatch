@@ -8,10 +8,7 @@ import cn.ajiehome.dispatch.memory.service.impl.NextFit;
 import cn.ajiehome.dispatch.memory.service.impl.WorstFit;
 import cn.ajiehome.dispatch.process.entity.PCB;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Jie
@@ -189,12 +186,55 @@ public class QueueUtils {
         readyQueue.add(pcb);
         runQueue.remove(pcb);
     }
+    public static void requeueMFQProcess(){
+        PCB pcb = runQueue.get(0);
+        if (pcb.getProcessLevel()<4){
+            pcb.setProcessLevel(pcb.getProcessLevel()+1);
+        }
+        readyQueue.add(pcb);
+        runQueue.remove(pcb);
+    }
 
     public static void sortReadyRank(){
         Collections.sort(readyQueue, new Comparator<PCB>() {
             @Override
             public int compare(PCB o1, PCB o2) {
                 return o2.getPriorityRank()-o1.getPriorityRank();
+            }
+        });
+    }
+
+    public static Boolean resultHRRNProcess(){
+        int index = -1;
+        for (int i = 0; i < readyQueue.size(); i++) {
+            if (index==-1){
+                index = i;
+            }else {
+                double result1Ratio = (double) (systemRunTimeAll - readyQueue.get(index).getArrivalsTime() + readyQueue.get(index).getNeedTime()) / readyQueue.get(index).getNeedTime();
+                double result2Ratio = (double) (systemRunTimeAll - readyQueue.get(i).getArrivalsTime() + readyQueue.get(i).getNeedTime()) / readyQueue.get(i).getNeedTime();
+                if (result2Ratio>result1Ratio){
+                    index = i;
+                }
+            }
+        }
+        if (index!=0){
+            runProcess(index);
+            return true;
+        }
+        return false;
+    }
+
+    public static void sortMFQProcess(){
+        Collections.sort(readyQueue, new Comparator<PCB>() {
+            @Override
+            public int compare(PCB o1, PCB o2) {
+                return o2.getPriorityRank()-o1.getPriorityRank();
+            }
+        });
+        Collections.sort(readyQueue, new Comparator<PCB>() {
+            @Override
+            public int compare(PCB o1, PCB o2) {
+                return o1.getProcessLevel() - o2.getProcessLevel();
             }
         });
     }

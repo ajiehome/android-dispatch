@@ -32,15 +32,22 @@ public class PCB {
      * 阻塞原因
      */
     private String causeBlock;
-
+    /**
+     * 挂起类型 0表示运行挂起，1表示就绪挂起，2表示阻塞挂起
+     */
     private Integer hangType = -1;
-
     /**
      * 需要内存大小
      */
     private Integer needMemorySize;
-
+    /**
+     * 内存分配首地址
+     */
     private Integer startIndexMemory = -1;
+    /**
+     * 所处队列等级，主要为了多级队列
+     */
+    private Integer processLevel = 1;
 
     public PCB(Integer processId, String processName, Integer priorityRank, Long arrivalsTime, Long needTime, Integer needMemorySize) {
         this.processId = processId;
@@ -147,6 +154,7 @@ public class PCB {
                 ", 阻塞原因=" + causeBlock + '\'' +
                 ", 内存首地址=" + startIndexMemory + '\'' +
                 ", 需要内存大小=" + needMemorySize + '\'' +
+                ", 所在队列=" + processLevel + '\'' +
                 '}';
     }
 
@@ -156,5 +164,13 @@ public class PCB {
 
     public void setHangType(Integer hangType) {
         this.hangType = hangType;
+    }
+
+    public Integer getProcessLevel() {
+        return processLevel;
+    }
+
+    public void setProcessLevel(Integer processLevel) {
+        this.processLevel = processLevel;
     }
 }
