@@ -25,6 +25,7 @@ public class DispatchRRImpl implements Dispatch {
     @Override
     public Long transfer() {
         QueueUtils.allocationMemory(QueueUtils.distributionIndex);
+
         //无运行队列，分配一个
         if (QueueUtils.runQueue.size()==0){
             if (!QueueUtils.runProcess(0)){
@@ -50,27 +51,27 @@ public class DispatchRRImpl implements Dispatch {
 
     @Override
     public void blockProcess() {
-
+        QueueUtils.blockProcess();
     }
 
     @Override
     public void runProcess(Integer index) {
-
+        QueueUtils.runProcess(index);
     }
 
     @Override
     public void HangProcess(Integer position, Integer index) {
-
+        QueueUtils.hangProcess(position,index);
     }
 
     @Override
     public void wakeProcess(Integer index) {
-
+        QueueUtils.wakeProcess(index);
     }
 
     @Override
     public void activationProcess(Integer index) {
-
+        QueueUtils.activationProcess(index);
     }
 
     public Long getFragmentTime() {

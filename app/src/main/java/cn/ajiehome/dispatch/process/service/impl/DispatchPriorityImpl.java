@@ -4,17 +4,15 @@ import cn.ajiehome.dispatch.process.entity.PCB;
 import cn.ajiehome.dispatch.process.service.Dispatch;
 import cn.ajiehome.dispatch.utils.QueueUtils;
 
-import java.util.Queue;
-
 /**
  * @author Jie
  */
-public class DispatchFCFSImpl implements Dispatch {
-    private static final String TAG = "DispatchFCFSImpl";
+public class DispatchPriorityImpl implements Dispatch {
 
     @Override
     public Long transfer() {
         QueueUtils.allocationMemory(QueueUtils.distributionIndex);
+        QueueUtils.sortReadyRank();//排序
 
         if (QueueUtils.runQueue.size()==0){
             if (!QueueUtils.runProcess(0)){
@@ -22,8 +20,10 @@ public class DispatchFCFSImpl implements Dispatch {
             }
         }
 
+        //正常运行
         PCB pcb = QueueUtils.runQueue.get(0);
         pcb.setUsedCPUTime(pcb.getUsedCPUTime()+1);
+        //运行完毕
         if (pcb.getUsedCPUTime()>=pcb.getNeedTime()){
             QueueUtils.finishProcess();
         }
@@ -32,26 +32,26 @@ public class DispatchFCFSImpl implements Dispatch {
 
     @Override
     public void blockProcess() {
-        QueueUtils.blockProcess();
+
     }
 
     @Override
     public void runProcess(Integer index) {
-        QueueUtils.runProcess(index);
+
     }
 
     @Override
     public void HangProcess(Integer position, Integer index) {
-        QueueUtils.hangProcess(position,index);
+
     }
 
     @Override
     public void wakeProcess(Integer index) {
-        QueueUtils.wakeProcess(index);
+
     }
 
     @Override
     public void activationProcess(Integer index) {
-        QueueUtils.activationProcess(index);
+
     }
 }

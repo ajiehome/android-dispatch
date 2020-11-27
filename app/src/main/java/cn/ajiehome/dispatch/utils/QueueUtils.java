@@ -9,6 +9,8 @@ import cn.ajiehome.dispatch.memory.service.impl.WorstFit;
 import cn.ajiehome.dispatch.process.entity.PCB;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -186,5 +188,14 @@ public class QueueUtils {
         PCB pcb = runQueue.get(0);
         readyQueue.add(pcb);
         runQueue.remove(pcb);
+    }
+
+    public static void sortReadyRank(){
+        Collections.sort(readyQueue, new Comparator<PCB>() {
+            @Override
+            public int compare(PCB o1, PCB o2) {
+                return o2.getPriorityRank()-o1.getPriorityRank();
+            }
+        });
     }
 }
