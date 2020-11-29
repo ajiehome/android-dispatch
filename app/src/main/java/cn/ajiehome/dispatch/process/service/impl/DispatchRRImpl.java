@@ -11,8 +11,6 @@ import java.util.IllegalFormatCodePointException;
  * @author Jie
  */
 public class DispatchRRImpl implements Dispatch {
-    private static final String TAG = "DispatchRRImpl";
-
     private Long fragmentTime = 5L;
     private Long runTime = 0L;
 
@@ -43,7 +41,7 @@ public class DispatchRRImpl implements Dispatch {
         }
         //重新排队
         if (runTime>=fragmentTime){
-            QueueUtils.requeueMFQProcess();
+            QueueUtils.requeueRRProcess();
             runTime=0L;
         }
         return ++QueueUtils.systemRunTimeAll;

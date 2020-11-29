@@ -1,6 +1,6 @@
 package cn.ajiehome.dispatch.utils;
 
-import android.util.Log;
+
 import cn.ajiehome.dispatch.memory.service.Fit;
 import cn.ajiehome.dispatch.memory.service.impl.BestFit;
 import cn.ajiehome.dispatch.memory.service.impl.FirstFit;
@@ -66,7 +66,7 @@ public class QueueUtils {
         for (int i = 0; i < createQueueSize; i++) {
             PCB pcb = createQueue.get(index);
             if (pcb.getArrivalsTime() <= systemRunTimeAll) {
-                Integer indexMemory = fit.distribution(pcb.getNeedMemorySize());
+                Integer indexMemory = fit.distribution(pcb.getNeedMemorySize(),pcb.getProcessId());
                 if (indexMemory != -1) {
                     pcb.setStartIndexMemory(indexMemory);
                     readyQueue.add(pcb);
@@ -86,6 +86,7 @@ public class QueueUtils {
     public static void addProcess() {
         createQueue.add(BaseUtils.createPCB(processIndex, systemRunTimeAll));
         allocationMemory(distributionIndex);
+        processIndex++;
     }
 
     /**
@@ -105,6 +106,10 @@ public class QueueUtils {
      */
     public static Boolean runProcess(Integer index) {
         if (readyQueue.size() != 0) {
+            if (runQueue.size()!=0){
+                blockQueue.add(runQueue.get(0));
+                runQueue.remove(0);
+            }
             PCB pcb = readyQueue.get(index);
             runQueue.add(pcb);
             readyQueue.remove(pcb);
@@ -173,7 +178,7 @@ public class QueueUtils {
      */
     public static void finishProcess() {
         PCB pcb = runQueue.get(0);
-        MemoryUtils.freedMemory(pcb.getStartIndexMemory(), pcb.getNeedMemorySize());
+        MemoryUtils.freedMemory(pcb.getStartIndexMemory(), pcb.getNeedMemorySize(),pcb.getProcessId());
         finishQueue.add(pcb);
         runQueue.remove(pcb);
     }
@@ -217,7 +222,7 @@ public class QueueUtils {
                 }
             }
         }
-        if (index!=0){
+        if (index!=-1){
             runProcess(index);
             return true;
         }

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class WorstFit implements Fit {
     @Override
-    public Integer distribution(Integer memorySize) {
+    public Integer distribution(Integer memorySize,Integer pid) {
         int index = -1;
         int count = 0;
         List<FragmentMemory> list = new ArrayList<>();
@@ -33,7 +33,7 @@ public class WorstFit implements Fit {
                 count = 0;
             }
         }
-        if (index!=0&&count>memorySize){
+        if (index!=-1&&count>memorySize){
             list.add(new FragmentMemory(index, index + count));
         }
         Collections.sort(list, new Comparator<FragmentMemory>() {
@@ -44,7 +44,7 @@ public class WorstFit implements Fit {
         });
 
         if (list.size() != 0) {
-            MemoryUtils.occupyMemory(list.get(0).getStart(), memorySize);
+            MemoryUtils.occupyMemory(list.get(0).getStart(), memorySize,pid);
             index = list.get(0).getStart();
         } else {
             index = -1;

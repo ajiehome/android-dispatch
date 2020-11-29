@@ -10,5 +10,5 @@ public interface Fit {
      * @param memorySize 需要的内存大小
      * @return 分配给该进程内存的起始地址
      */
-    Integer distribution(Integer memorySize);
+    Integer distribution(Integer memorySize,Integer pid);
 }

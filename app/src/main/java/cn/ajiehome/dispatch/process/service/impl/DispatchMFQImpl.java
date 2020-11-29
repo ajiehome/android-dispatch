@@ -9,7 +9,6 @@ import cn.ajiehome.dispatch.utils.QueueUtils;
  * @author Jie
  */
 public class DispatchMFQImpl implements Dispatch {
-    private static final String TAG = "DispatchMFQImpl";
     private Long fragmentTime = 5L;
     private Long runTime = 0L;
 

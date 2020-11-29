@@ -8,7 +8,6 @@ import cn.ajiehome.dispatch.utils.QueueUtils;
  * @author Jie
  */
 public class DispatchPriorityImpl implements Dispatch {
-
     @Override
     public Long transfer() {
         QueueUtils.allocationMemory(QueueUtils.distributionIndex);
@@ -32,26 +31,26 @@ public class DispatchPriorityImpl implements Dispatch {
 
     @Override
     public void blockProcess() {
-
+        QueueUtils.blockProcess();
     }
 
     @Override
     public void runProcess(Integer index) {
-
+        QueueUtils.runProcess(index);
     }
 
     @Override
     public void HangProcess(Integer position, Integer index) {
-
+        QueueUtils.hangProcess(position,index);
     }
 
     @Override
     public void wakeProcess(Integer index) {
-
+        QueueUtils.wakeProcess(index);
     }
 
     @Override
     public void activationProcess(Integer index) {
-
+        QueueUtils.activationProcess(index);
     }
 }

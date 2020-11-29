@@ -1,5 +1,6 @@
 package cn.ajiehome.dispatch.process.service.impl;
 
+import android.util.Log;
 import cn.ajiehome.dispatch.process.entity.PCB;
 import cn.ajiehome.dispatch.process.service.Dispatch;
 import cn.ajiehome.dispatch.utils.QueueUtils;
@@ -11,13 +12,11 @@ public class DispatchHRRNImpl implements Dispatch {
     @Override
     public Long transfer() {
         QueueUtils.allocationMemory(QueueUtils.distributionIndex);
-
         if (QueueUtils.runQueue.size()==0){
             if (!QueueUtils.resultHRRNProcess()){
                 return ++QueueUtils.systemRunTimeAll;
             }
         }
-
         PCB pcb = QueueUtils.runQueue.get(0);
         pcb.setUsedCPUTime(pcb.getUsedCPUTime()+1);
         if (pcb.getUsedCPUTime()>=pcb.getNeedTime()){

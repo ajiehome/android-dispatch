@@ -10,18 +10,15 @@ import java.util.Queue;
  * @author Jie
  */
 public class DispatchFCFSImpl implements Dispatch {
-    private static final String TAG = "DispatchFCFSImpl";
 
     @Override
     public Long transfer() {
         QueueUtils.allocationMemory(QueueUtils.distributionIndex);
-
         if (QueueUtils.runQueue.size()==0){
             if (!QueueUtils.runProcess(0)){
                 return ++QueueUtils.systemRunTimeAll;
             }
         }
-
         PCB pcb = QueueUtils.runQueue.get(0);
         pcb.setUsedCPUTime(pcb.getUsedCPUTime()+1);
         if (pcb.getUsedCPUTime()>=pcb.getNeedTime()){

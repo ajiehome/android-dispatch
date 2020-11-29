@@ -11,7 +11,7 @@ public class FirstFit implements Fit {
     private static final String TAG = "FirstFit";
 
     @Override
-    public Integer distribution(Integer memorySize) {
+    public Integer distribution(Integer memorySize,Integer pid) {
         int index = -1;//符合条件的初始地址
         int count = 0;//符合区的长度
 
@@ -33,7 +33,7 @@ public class FirstFit implements Fit {
             }
         }
         if (index != -1 && count >= memorySize) {
-            MemoryUtils.occupyMemory(index, memorySize);
+            MemoryUtils.occupyMemory(index, memorySize,pid);
             MemoryUtils.indexAll = index;
         }else {
             index = -1;

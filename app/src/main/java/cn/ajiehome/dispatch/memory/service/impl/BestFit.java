@@ -1,5 +1,6 @@
 package cn.ajiehome.dispatch.memory.service.impl;
 
+import android.util.Log;
 import cn.ajiehome.dispatch.memory.entity.FragmentMemory;
 import cn.ajiehome.dispatch.memory.service.Fit;
 import cn.ajiehome.dispatch.utils.MemoryUtils;
@@ -13,11 +14,13 @@ import java.util.List;
  * @author Jie
  */
 public class BestFit implements Fit {
+    private static final String TAG = "BestFit";
     @Override
-    public Integer distribution(Integer memorySize) {
+    public Integer distribution(Integer memorySize,Integer pid) {
         int index = -1;
         int count = 0;
         List<FragmentMemory> list = new ArrayList<>();//存储所有合适的碎片
+
         for (int i = 0; i < MemoryUtils.MEMORY.length; i++) {
             Integer memoryByte = MemoryUtils.MEMORY[i];
             if (memoryByte == 0) {
@@ -33,7 +36,8 @@ public class BestFit implements Fit {
                 count = 0;
             }
         }
-        if (index!=0&&count>memorySize){
+        Log.e(TAG, "distribution: "+index+"->"+count );
+        if (index!=-1&&count>memorySize){
             list.add(new FragmentMemory(index, index + count));
         }
         Collections.sort(list, new Comparator<FragmentMemory>() {
@@ -43,11 +47,12 @@ public class BestFit implements Fit {
             }
         });
         if (list.size() != 0) {
-            MemoryUtils.occupyMemory(list.get(0).getStart(), memorySize);
+            MemoryUtils.occupyMemory(list.get(0).getStart(), memorySize,pid);
             index = list.get(0).getStart();
         } else {
             index = -1;
         }
+        Log.e(TAG, "distribution: "+index );
         return index;
     }
 }

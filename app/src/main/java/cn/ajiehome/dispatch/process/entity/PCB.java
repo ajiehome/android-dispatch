@@ -33,7 +33,7 @@ public class PCB {
      */
     private String causeBlock;
     /**
-     * 挂起类型 0表示运行挂起，1表示就绪挂起，2表示阻塞挂起
+     * 挂起类型 0表示就绪挂起，1 表示运行挂起，2表示阻塞挂起
      */
     private Integer hangType = -1;
     /**
@@ -56,18 +56,6 @@ public class PCB {
         this.arrivalsTime = arrivalsTime;
         this.needTime = needTime;
         this.needMemorySize = needMemorySize;
-    }
-
-    public PCB(Integer processId, String processName, Integer priorityRank, Long arrivalsTime, Long needTime, Long usedCPUTime, String causeBlock, Integer needMemorySize, Integer startIndexMemory) {
-        this.processId = processId;
-        this.processName = processName;
-        this.priorityRank = priorityRank;
-        this.arrivalsTime = arrivalsTime;
-        this.needTime = needTime;
-        this.usedCPUTime = usedCPUTime;
-        this.causeBlock = causeBlock;
-        this.needMemorySize = needMemorySize;
-        this.startIndexMemory = startIndexMemory;
     }
 
     public Integer getProcessId() {
@@ -173,4 +161,5 @@ public class PCB {
     public void setProcessLevel(Integer processLevel) {
         this.processLevel = processLevel;
     }
+
 }

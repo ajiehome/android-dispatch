@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">阿杰之家</string>
+    <string name="create_queue">等待队列</string>
+    <string name="ready_queue">就绪队列</string>
+    <string name="run_queue">运行队列</string>
+    <string name="block_queue">阻塞队列</string>
+    <string name="hang_queue">挂起队列</string>
+    <string name="finish_queue">结束队列</string>
+    <string name="add_process">增加一个进程</string>
+    <string name="memory_details">内存使用详情</string>
+
+    <string-array name="spinner_list">
+        <item>请选择算法</item>
+        <item>先来先服务</item>
+        <item>时间片轮转</item>
+        <item>高响  应比</item>
+        <item>进程优先级</item>
+        <item>多级  调度</item>
+    </string-array>
+    <string-array name="MEMORY_list">
+        <item>首次适应算法</item>
+        <item>循环首次适应</item>
+        <item>最佳适应算法</item>
+        <item>最坏适应算法</item>
+    </string-array>
 </resources>

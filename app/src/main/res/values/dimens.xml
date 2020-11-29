@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="itemTextSize">12dp</dimen>
+	<dimen name="titleTextSize">14dp</dimen>
+	<dimen name="marginSize">10dp</dimen>
+	<dimen name="bar">30dp</dimen>
+</resources>
