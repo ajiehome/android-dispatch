@@ -43,7 +43,14 @@ public class CreateQueueAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = BaseUiUtils.initItemEntity(convertView, context, parent, getItem(position));
+        PCB item = getItem(position);
+        if (item.getArrivalsTime()<QueueUtils.systemRunTimeAll){
+            item.setCauseBlock("内存待分配");
+        }else {
+            item.setCauseBlock("进程未到达");
+        }
+
+        View view = BaseUiUtils.initItemEntity(convertView, context, parent, item);
         ItemViewAll itemViewAll = (ItemViewAll) view.getTag();
         itemViewAll.getHangButton().setVisibility(View.INVISIBLE);
         itemViewAll.getOperatingButton().setVisibility(View.INVISIBLE);

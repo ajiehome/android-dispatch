@@ -127,7 +127,7 @@
 					android:layout_weight="2"
 					android:layout_height="wrap_content"
 					android:textColor="@color/black"
-					android:text="阻塞原因"
+					android:text="进程信息"
 					tools:ignore="HardcodedText,SpUsage"
 					android:textSize="@dimen/itemTextSize"
 					android:gravity="center">

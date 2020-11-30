@@ -36,7 +36,9 @@ public class FinishQueueAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = BaseUiUtils.initItemEntity(convertView, context, parent, getItem(position));
+        PCB item = getItem(position);
+        item.setCauseBlock("已运行结束");
+        View view = BaseUiUtils.initItemEntity(convertView, context, parent, item);
         ItemViewAll itemViewAll = (ItemViewAll) view.getTag();
         itemViewAll.getHangButton().setVisibility(View.INVISIBLE);
         itemViewAll.getOperatingButton().setVisibility(View.INVISIBLE);

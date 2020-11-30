@@ -41,7 +41,9 @@ public class RunQueueAdapter extends BaseAdapter {
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = BaseUiUtils.initItemEntity(convertView, context, parent, getItem(position));
+        PCB item = getItem(position);
+        item.setCauseBlock("进程运行中");
+        View view = BaseUiUtils.initItemEntity(convertView, context, parent, item);
         ItemViewAll itemViewAll = (ItemViewAll) view.getTag();
         itemViewAll.getHangButton().setOnClickListener(new View.OnClickListener() {
             @Override

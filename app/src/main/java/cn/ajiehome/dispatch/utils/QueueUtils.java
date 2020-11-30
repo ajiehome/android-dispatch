@@ -121,20 +121,20 @@ public class QueueUtils {
     /**
      * 挂起
      *
-     * @param position 挂起的某个队列,0表示运行挂起，1表示就绪挂起，2表示阻塞挂起
+     * @param position 挂起的某个队列,0表示就绪挂起，1 表示运行挂起，2表示阻塞挂起
      * @param index    挂起索引
      */
     public static void hangProcess(Integer position, Integer index) {
         PCB pcb = null;
         switch (position) {
             case 0:
+                pcb = readyQueue.get(index);
+                readyQueue.remove(pcb);
+                break;
+            case 1:
                 pcb = runQueue.get(index);
                 runQueue.remove(pcb);
                 runProcess(0);
-                break;
-            case 1:
-                pcb = readyQueue.get(index);
-                readyQueue.remove(pcb);
                 break;
             case 2:
                 pcb = blockQueue.get(index);

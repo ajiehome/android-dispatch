@@ -13,9 +13,9 @@
         <item>请选择算法</item>
         <item>先来先服务</item>
         <item>时间片轮转</item>
-        <item>高响  应比</item>
+        <item>高响\u3000应比</item>
         <item>进程优先级</item>
-        <item>多级  调度</item>
+        <item>多级\u3000调度</item>
     </string-array>
     <string-array name="MEMORY_list">
         <item>首次适应算法</item>

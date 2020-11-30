@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int processCount = Integer.parseInt(edit.getText().toString());
+                int processCount = Integer.parseInt("".equals(edit.getText().toString())?"0":edit.getText().toString());
                 if (processCount>20){
                     Toast.makeText(MainActivity.this,"请输入20以内的数",Toast.LENGTH_SHORT).show();
                 }else {
@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
         readyQueueAdapter = new ReadyQueueAdapter(MainActivity.this, new HangUpdateUI() {
             @Override
             public void updateUI(Integer index) {
-                dispatch.HangProcess(1,index);
+                dispatch.HangProcess(0,index);
                 updateUIAll();
             }
         }, new RunUpdateUI() {
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
         runQueueAdapter = new RunQueueAdapter(MainActivity.this, new HangUpdateUI() {
             @Override
             public void updateUI(Integer index) {
-                dispatch.HangProcess(0,index);
+                dispatch.HangProcess(1,index);
                 updateUIAll();
             }
         }, new BlockUpdateUI() {

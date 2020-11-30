@@ -40,7 +40,19 @@ public class HangQueueAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = BaseUiUtils.initItemEntity(convertView, context, parent, getItem(position));
+        PCB item = getItem(position);
+        switch (item.getHangType()){
+            case 0:
+                item.setCauseBlock("就绪挂起");
+                break;
+            case 1:
+                item.setCauseBlock("运行挂起");
+                break;
+            case 2:
+                item.setCauseBlock("阻塞挂起");
+                break;
+        }
+        View view = BaseUiUtils.initItemEntity(convertView, context, parent, item);
         ItemViewAll itemViewAll = (ItemViewAll) view.getTag();
         itemViewAll.getHangButton().setVisibility(View.INVISIBLE);
         itemViewAll.getOperatingButton().setText("激活");
