@@ -50,6 +50,7 @@ public class DispatchRRImpl implements Dispatch {
     @Override
     public void blockProcess() {
         QueueUtils.blockProcess();
+        runTime = 0L;
     }
 
     @Override
